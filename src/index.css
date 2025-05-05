@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+
+.radiant-gradient {
+  background-color: rgba(52, 211, 153, 0.35); /* brighter emerald */
+  border: 1px solid rgba(52, 211, 153, 0.6);  /* sharper border */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 0 25px rgba(52, 211, 153, 0.2); /* subtle glow */
+}
+
+.radiant-gradient:hover {
+  background-color: rgba(52, 211, 153, 0.5); /* rich emerald */
+  border-color: rgba(52, 211, 153, 0.8);
+  box-shadow: 0 0 30px rgba(52, 211, 153, 0.3); /* more glow */
+}
+
+
+
+.linear-mask {
+  mask-image: linear-gradient(-75deg, white calc(var(--x) + 20%), transparent calc(var(--x) + 100%), white calc(var(--x) + 100%));
+  -webkit-mask-image: linear-gradient(-75deg, white calc(var(--x) + 20%), transparent calc(var(--x) + 100%), white calc(var(--x) + 100%));
+}
+
+.linear-overlay {
+  background-image: linear-gradient(-75deg, rgba(255, 255, 255, 0.15) calc(var(--x) + 20%), rgba(255, 255, 255, 0.5) calc(var(--x) + 25%), rgba(255, 255, 255, 0.15) calc(var(--x) + 50%));
+  mask: linear-gradient(black, black) content-box, linear-gradient(black, black);
+  -webkit-mask: linear-gradient(black, black) content-box, linear-gradient(black, black);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+}
+
+
+
+#moving-div .move{
+  display: flex;
+  gap: 4vw;
+  margin-top: 5vw;
+  animation: scroll-right 20s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.grid-top {
+  width: 100vw;
+  height: 30vh; 
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-bottom: 0.25rem;
+}
+
+.grid-bottom-right {
+  height: 70vh; /* Adjusted for mobile */
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 0.25rem; /* Minimal gap for mobile */
+}
+
+/* Desktop adjustments */
+@media (min-width: 768px) {
+  .grid-top {
+    height: 35vh; /* Unchanged for desktop */
+    padding-bottom: 0.5rem;
+  }
+  
+  .grid-bottom-right {
+    height: 65vh; /* Unchanged for desktop */
+    padding-top: 0.5rem;
+  }
+  
+  .grid-bottom-right p {
+    text-align: left;
+    max-width: 800px;
+    padding: 0 2rem;
+    line-height: 1.3;
+    font-size: 1.5rem; /* text-2xl for larger desktop text */
+  }
+}
+
+.word2, .word9, .word11{
+  outline: 1px dashed var(--color-red-100);
+  border-radius: 10px;
+}
+
+
+.card {
+  @apply w-[44rem] h-[26rem] rounded-lg border border-neutral-600 flex flex-row p-8 absolute justify-between stroke-[0.1] hover:stroke-[0.2];
+}
+
+
+.industries-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cards-container {
+  display: flex;
+  gap: 2rem;
+  margin-top: 5vh;
+}
+
+.card {
+  flex: 1;
+  height: 80vh;
+  min-height: 500px;
+}
+
+#second {
+  color: #fff;
+  padding: 10vw;
+  width: 100%;
+  height: auto;
+  background-color: black;
+  padding-top: 70px;
+}
+
+.elem {
+  position: relative;
+  width: 100%;
+  padding: 2vw 1vw;
+  border-top: 1px solid #888;
+}
+
+.elem h1 {
+  text-transform: uppercase;
+  font-size: 4vw;
+  opacity: .7;
+}
+
+.elemlast {
+  border-bottom: 1px solid #888;
+}
+
+.elem img {
+  position: absolute;
+  z-index: 999;
+  height: 130%;
+  width: auto;
+  opacity: 0;
+}
+
