@@ -10,7 +10,6 @@ import {
     ArrowRightIcon,
 } from '@heroicons/react/24/outline';
 
-// Define interface for industry data
 interface Industry {
     name: string;
     Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -20,7 +19,6 @@ interface Industry {
     stats: string;
 }
 
-// Define industries data
 const industries: Industry[] = [
     {
         name: 'Manufacturing',

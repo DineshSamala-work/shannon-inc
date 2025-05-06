@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import React, { useState, ReactNode, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FiChevronDown, FiMenu, FiX } from 'react-icons/fi';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import {
@@ -127,25 +127,32 @@ export const ShiftingDropDown = () => {
                 </div>
 
                 <motion.button
-                    className="relative px-4 py-2 rounded-md radiant-gradient linear-mask overflow-hidden"
-                    initial={{ "--x": "100%" }}
-                    animate={{ "--x": "-100%" }}
+                    aria-label="Start ERP transformation"
+                    className="relative rounded-lg bg-[rgba(52,211,153,0.35)] border border-[rgba(52,211,153,0.6)] hover:bg-[rgba(52,211,153,0.42)] hover:border-[rgba(52,211,153,0.7)] transition-all duration-300 text-amber-50 text-sm flex items-center group shadow-md hover:shadow-[0_0_12px_rgba(52,211,153,0.2)] backdrop-blur-md overflow-hidden w-auto text-center"
+                    initial={{ "--x": "100" }}
+                    animate={{ "--x": "-100" }}
                     transition={{
                         repeat: Infinity,
-                        repeatType: 'loop',
+                        repeatType: "loop",
                         repeatDelay: 1,
-                        type: 'spring',
+                        type: "spring",
                         stiffness: 20,
                         damping: 15,
                         mass: 2,
                     }}
+                    style={{
+                        fontSize: "clamp(6px, 2vw, 12px)",
+                        padding: "clamp(3px, 1.5vw, 6px)",
+                    }}
                 >
-                    <span className="text-neutral-200 tracking-wide font-medium">Transform Now</span>
+                    <span className="text-neutral-100 tracking-wide font-medium mr-1 px-3 py-1">
+                        Contact us
+                    </span>
+                    <ArrowRightIcon className="w-4 h-4 transform transition-transform duration-300 group-hover:translate-x-1" />
                     <span className="block absolute inset-0 rounded-md p-px linear-overlay" />
                 </motion.button>
             </div>
 
-            {/* Mobile Menu */}
             <AnimatePresence>
                 {isMenuOpen && (
                     <motion.div
@@ -228,7 +235,7 @@ const ContentDesktop: React.FC<{ selected: number | null; direction: 'l' | 'r' |
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
-            className={`absolute top-[calc(100%+24px)] w-auto rounded-3xl border border-neutral-500 bg-black p-4 ${
+            className={`absolute top-[calc(100%+24px)] w-auto rounded-2xl border border-neutral-500 bg-black p-4 ${
                 isLastTab ? 'right-0' : ''
             }`}
         >
@@ -292,7 +299,7 @@ const TabMobile: React.FC<{
     toggleMenu: () => void;
     title: string;
     direction: 'l' | 'r' | null;
-}> = ({ tab, handleSelected, selected, toggleMenu, title, direction }) => {
+}> = ({ tab, handleSelected, selected, toggleMenu, title }) => {
     const handleClick = () => {
         handleSelected(selected === tab ? null : tab);
     };

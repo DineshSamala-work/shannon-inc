@@ -58,7 +58,7 @@ const WhatWeDo: React.FC = () => {
 
     return (
         <div
-            className="what-we-do py-15 relative"
+            className="what-we-do relative"
             style={{
                 backgroundColor: "black",
                 color: "white",

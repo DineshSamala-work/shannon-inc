@@ -41,7 +41,7 @@ const LandingPage = () => {
         <div className="absolute w-[70vw] h-[70vw] bg-emerald-400/10 blur-3xl rounded-full top-[20%] left-1/2 -translate-x-1/2 opacity-25" />
       </div>
 
-      <div className="max-w-screen-xl mx-auto w-full leading-tight">
+      <div className="max-w-screen-xl mx-auto w-full leading-tight -translate-y-10">
         <h1
           ref={headingRefs[0]}
           className="text-[7vw] sm:text-[5vw] md:text-5xl font-bold text-white mb-2"
@@ -74,13 +74,13 @@ const LandingPage = () => {
 
       <button
         aria-label="Explore our solutions"
-        className="mt-6 bg-emerald-400/20 border border-emerald-400/40 hover:bg-emerald-400/25 hover:border-emerald-400/60 transition-all duration-300 rounded-lg px-6 py-2 text-emerald-100 text-sm flex items-center group shadow-md hover:shadow-[0_0_12px_rgba(52,211,153,0.3)]"
+        className="bg-emerald-400/20 border border-emerald-400/40 hover:bg-emerald-400/25 hover:border-emerald-400/60 transition-all duration-300 rounded-lg px-6 py-2 text-emerald-100 text-sm flex items-center group shadow-md hover:shadow-[0_0_12px_rgba(52,211,153,0.3)]"
       >
         <span className="mr-2">Explore our solutions</span>
         <ArrowRightIcon className="w-4 h-4 transform transition-transform duration-300 group-hover:translate-x-1 text-emerald-100" />
       </button>
 
-      <div className="mt-10 w-full overflow-hidden">
+      <div className="mt-30 w-full overflow-hidden">
         <div className="flex space-x-10 animate-scroll group hover:[animation-play-state:paused]">
           {Array(2)
             .fill([
