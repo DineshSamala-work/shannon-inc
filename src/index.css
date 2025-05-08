@@ -124,7 +124,6 @@
   color: #fff;
   padding: 10vw;
   width: 100%;
-  height: auto;
   background-color: black;
   padding-top: 70px;
 }
@@ -134,7 +133,6 @@
   width: 100%;
   padding: 2vw 1vw;
   border-top: 1px solid #888;
-  overflow: hidden;
 }
 
 .elem h1 {
@@ -149,14 +147,19 @@
 
 .elem img {
   position: absolute;
-  z-index: 999;
+  width: 300px;
+  max-width: 100%;
+  height: auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 130%;
-  width: auto;
-  opacity: 0;
   pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  object-fit: contain;
 }
+
+
+
 
 

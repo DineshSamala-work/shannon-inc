@@ -6,6 +6,7 @@ import Services from './Services';
 import { ShiftingDropDown } from './ShiftingDropDown';
 import WhatWeDo from './WhatWeDo';
 import Preloader from './Preloader'; // Import the Preloader component
+import Footer from './Footer';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -31,6 +32,7 @@ const App = () => {
           <WhatWeDo />
           <IndustriesWeServe />
           <Services />
+          <Footer/>
         </>
       )}
     </div>

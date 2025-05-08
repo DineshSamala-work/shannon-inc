@@ -9,15 +9,21 @@ import {
     ShieldCheckIcon,
     ChatBubbleLeftIcon,
     ArrowRightIcon,
+    CpuChipIcon,
+    CloudArrowUpIcon,
+    ChartBarIcon,
+    ArrowsRightLeftIcon,
+    UserGroupIcon,
 } from "@heroicons/react/24/outline";
 
 gsap.registerPlugin(SplitText);
 
 const WhatWeDo: React.FC = () => {
     const paragraphRef = useRef<HTMLParagraphElement>(null);
-    const marqueeRef = useRef<HTMLDivElement>(null);
-    let marqueeAnimation: gsap.core.Tween | null = null; // Store animation for pause/resume
-
+    const marqueeRefLeft = useRef<HTMLDivElement>(null);
+    const marqueeRefRight = useRef<HTMLDivElement>(null);
+    let marqueeAnimationLeft: gsap.core.Tween | null = null;
+    let marqueeAnimationRight: gsap.core.Tween | null = null;
 
     useEffect(() => {
         if (!paragraphRef.current) return;
@@ -31,30 +37,149 @@ const WhatWeDo: React.FC = () => {
             duration: 1.5,
         });
 
-        if (marqueeRef.current) {
-            const cards = gsap.utils.toArray(marqueeRef.current.children) as HTMLElement[];
-            const cardWidth = cards[0].offsetWidth;
-            const gap = 32;
-            const totalWidth = (cardWidth + gap) * 5;
+        const setupAnimations = () => {
+            // Left scrolling marquee (right to left) - Business Metrics
+            if (marqueeRefLeft.current) {
+                const cards = gsap.utils.toArray(marqueeRefLeft.current.children) as HTMLElement[];
+                if (cards.length > 0) {
+                    const cardWidth = 300; // Fixed width for all cards
+                    const gap = 32;
+                    const totalWidth = (cardWidth + gap) * (cards.length / 2); // Account for duplicated cards
 
-            marqueeAnimation = gsap.to(cards, {
-                x: `-${totalWidth}`,
-                duration: 25,
-                ease: "none",
-                repeat: -1,
-                modifiers: {
-                    x: gsap.utils.unitize(
-                        (x: number) => parseFloat(x.toString()) % totalWidth,
-                        "px"
-                    ),
-                },
-            });
-        }
+                    gsap.set(marqueeRefLeft.current, { x: 0 });
 
+                    marqueeAnimationLeft = gsap.to(marqueeRefLeft.current, {
+                        x: `-=${totalWidth}`,
+                        duration: 15,
+                        ease: "none",
+                        repeat: -1,
+                        onRepeat: () => {
+                            gsap.set(marqueeRefLeft.current, { x: 0 });
+                        },
+                    });
+                }
+            }
+
+            // Right scrolling marquee (left to right) - ERP Features
+            if (marqueeRefRight.current) {
+                const cards = gsap.utils.toArray(marqueeRefRight.current.children) as HTMLElement[];
+                if (cards.length > 0) {
+                    const cardWidth = 300;
+                    const gap = 32;
+                    const totalWidth = (cardWidth + gap) * (cards.length / 2);
+
+                    gsap.set(marqueeRefRight.current, { x: -totalWidth });
+
+                    marqueeAnimationRight = gsap.to(marqueeRefRight.current, {
+                        x: 0,
+                        duration: 15,
+                        ease: "none",
+                        repeat: -1,
+                        onRepeat: () => {
+                            gsap.set(marqueeRefRight.current, { x: -totalWidth });
+                        },
+                    });
+                }
+            }
+        };
+
+        const timer = setTimeout(setupAnimations, 100);
         return () => {
-            if (marqueeAnimation) marqueeAnimation.kill();
+            clearTimeout(timer);
+            if (marqueeAnimationLeft) marqueeAnimationLeft.kill();
+            if (marqueeAnimationRight) marqueeAnimationRight.kill();
         };
     }, []);
+
+    const businessMetricsCards = [
+        {
+            icon: <BuildingOffice2Icon className="text-emerald-400 h-4 w-4 icon" />,
+            title: "Enterprise Scale",
+            value: "$100M+",
+            description: "Annual revenue",
+        },
+        {
+            icon: <ShieldCheckIcon className="text-emerald-400 h-4 w-4 icon" />,
+            title: "Compliance",
+            value: "SOC 2 Type II",
+            description: "Audited security",
+        },
+        {
+            icon: <GlobeAltIcon className="text-emerald-400 h-4 w-4 icon" />,
+            title: "Global Reach",
+            value: "37",
+            description: "Countries served",
+        },
+        {
+            icon: <ClockIcon className="text-emerald-400 h-4 w-4 icon" />,
+            title: "Implementation",
+            value: "9mo",
+            description: "Average timeline",
+        },
+        {
+            icon: <ChatBubbleLeftIcon className="text-emerald-400 h-4 w-4 icon" />,
+            title: "Client Testimonial",
+            value: '"Reduced costs by 28%"',
+            description: "— Fortune 500 Client",
+        },
+    ];
+
+    const erpFeaturesCards = [
+        {
+            icon: <CpuChipIcon className="text-emerald-400 h-4 w-4 icon" />,
+            title: "System Integration",
+            value: "95%",
+            description: "Seamless connectivity",
+        },
+        {
+            icon: <CloudArrowUpIcon className="text-emerald-400 h-4 w-4 icon" />,
+            title: "Cloud Migration",
+            value: "100%",
+            description: "Success rate",
+        },
+        {
+            icon: <ChartBarIcon className="text-emerald-400 h-4 w-4 icon" />,
+            title: "Real-time Analytics",
+            value: "Instant",
+            description: "Business insights",
+        },
+        {
+            icon: <ArrowsRightLeftIcon className="text-emerald-400 h-4 w-4 icon" />,
+            title: "Workflow Automation",
+            value: "60%",
+            description: "Efficiency gain",
+        },
+        {
+            icon: <UserGroupIcon className="text-emerald-400 h-4 w-4 icon" />,
+            title: "User Training",
+            value: "500+",
+            description: "Employees trained",
+        },
+    ];
+
+    const renderCards = (cards: typeof businessMetricsCards, prefix: string) => {
+        return [...cards, ...cards].map((card, index) => (
+            <div
+                key={`${prefix}-${card.title}-${index}`}
+                className="bg-emerald-900/30 border border-emerald-400/20 rounded-xl p-6 w-[300px] h-[150px] flex-shrink-0 marquee-card flex flex-col justify-between"
+            >
+                <div className="flex items-center gap-2 mb-2">
+                    {card.icon}
+                    <p className="text-xs text-emerald-400 uppercase tracking-wider truncate">
+                        {card.title}
+                    </p>
+                </div>
+                <p
+                    className={`${
+                        card.title === "Client Testimonial" ? "text-sm italic" : "text-2xl font-bold"
+                    } truncate`}
+                >
+                    {card.value}
+                </p>
+                <p className="text-xs text-gray-400 mt-1 truncate">{card.description}</p>
+            </div>
+        ));
+    };
 
     return (
         <div
@@ -66,6 +191,7 @@ const WhatWeDo: React.FC = () => {
                 overflow: "hidden",
                 display: "flex",
                 flexDirection: "column",
+                padding: "2rem",
             }}
         >
             <div className="grid-top">
@@ -123,245 +249,53 @@ const WhatWeDo: React.FC = () => {
                     <span className="block absolute inset-0 rounded-md p-px linear-overlay" />
                 </motion.button>
 
-
                 <div className="w-full mt-16 overflow-hidden">
                     <div
-                        ref={marqueeRef}
+                        ref={marqueeRefLeft}
                         className="flex items-center gap-8 py-4 will-change-transform"
-                        onMouseEnter={() =>
-                            marqueeAnimation && marqueeAnimation.timeScale(0)
-                        }
-                        onMouseLeave={() =>
-                            marqueeAnimation && marqueeAnimation.timeScale(1)
-                        }
+                        style={{ width: "max-content" }}
+                        onMouseEnter={() => marqueeAnimationLeft && marqueeAnimationLeft.pause()}
+                        onMouseLeave={() => marqueeAnimationLeft && marqueeAnimationLeft.play()}
                     >
-                        {/* Enterprise Scale */}
-                        <div className="bg-emerald-900/30 border border-emerald-400/20 rounded-xl p-6 min-w-[250px] sm:min-w-[300px] flex-shrink-0 marquee-card">
-                            <div className="flex items-center gap-2 mb-2">
-                                <BuildingOffice2Icon className="text-emerald-400 h-4 w-4 icon" />
-                                <p className="text-xs text-emerald-400 uppercase tracking-wider">
-                                    Enterprise Scale
-                                </p>
-                            </div>
-                            <p className="text-3xl font-bold">$100M+</p>
-                            <p className="text-xs text-gray-400 mt-1">Annual revenue</p>
-                        </div>
+                        {renderCards(businessMetricsCards, "metrics")}
+                    </div>
+                </div>
 
-                        {/* Compliance */}
-                        <div className="bg-emerald-900/30 border border-emerald-400/20 rounded-xl p-6 min-w-[250px] sm:min-w-[300px] flex-shrink-0 marquee-card">
-                            <div className="flex items-center gap-2 mb-2">
-                                <ShieldCheckIcon className="text-emerald-400 h-4 w-4 icon" />
-                                <p className="text-xs text-emerald-400 uppercase tracking-wider">
-                                    Compliance
-                                </p>
-                            </div>
-                            <p className="text-2xl font-bold">SOC 2 Type II</p>
-                            <p className="text-xs text-gray-400 mt-1">Audited security</p>
-                        </div>
-
-                        {/* Global Reach */}
-                        <div className="bg-emerald-900/30 border border-emerald-400/20 rounded-xl p-6 min-w-[250px] sm:min-w-[300px] flex-shrink-0 marquee-card">
-                            <div className="flex items-center gap-2 mb-2">
-                                <GlobeAltIcon className="text-emerald-400 h-4 w-4 icon" />
-                                <p className="text-xs text-emerald-400 uppercase tracking-wider">
-                                    Global Reach
-                                </p>
-                            </div>
-                            <p className="text-3xl font-bold">37</p>
-                            <p className="text-xs text-gray-400 mt-1">Countries served</p>
-                        </div>
-
-                        {/* Implementation */}
-                        <div className="bg-emerald-900/30 border border-emerald-400/20 rounded-xl p-6 min-w-[250px] sm:min-w-[300px] flex-shrink-0 marquee-card">
-                            <div className="flex items-center gap-2 mb-2">
-                                <ClockIcon className="text-emerald-400 h-4 w-4 icon" />
-                                <p className="text-xs text-emerald-400 uppercase tracking-wider">
-                                    Implementation
-                                </p>
-                            </div>
-                            <p className="text-3xl font-bold">9mo</p>
-                            <p className="text-xs text-gray-400 mt-1">Average timeline</p>
-                        </div>
-
-                        {/* Client Testimonial */}
-                        <div className="bg-emerald-900/30 border border-emerald-400/20 rounded-xl p-6 min-w-[250px] sm:min-w-[300px] flex-shrink-0 marquee-card">
-                            <div className="flex items-center gap-2 mb-2">
-                                <ChatBubbleLeftIcon className="text-emerald-400 h-4 w-4 icon" />
-                                <p className="text-xs text-emerald-400 uppercase tracking-wider">
-                                    Client Testimonial
-                                </p>
-                            </div>
-                            <p className="text-sm italic">"Reduced costs by 28%"</p>
-                            <p className="text-xs text-gray-400 mt-2">— Fortune 500 Client</p>
-                        </div>
-
-                        {/* Duplicates for seamless looping */}
-                        <div
-                            className="bg-emerald-900/30 border border-emerald-400/20 rounded-xl p-6 min-w-[250px] sm:min-w-[300px] flex-shrink-0 marquee-card"
-                            aria-hidden="true"
-                        >
-                            <div className="flex items-center gap-2 mb-2">
-                                <BuildingOffice2Icon className="text-emerald-400 h-4 w-4 icon" />
-                                <p className="text-xs text-emerald-400 uppercase tracking-wider">
-                                    Enterprise Scale
-                                </p>
-                            </div>
-                            <p className="text-3xl font-bold">$100M+</p>
-                            <p className="text-xs text-gray-400 mt-1">Annual revenue</p>
-                        </div>
-
-                        <div
-                            className="bg-emerald-900/30 border border-emerald-400/20 rounded-xl p-6 min-w-[250px] sm:min-w-[300px] flex-shrink-0 marquee-card"
-                            aria-hidden="true"
-                        >
-                            <div className="flex items-center gap-2 mb-2">
-                                <ShieldCheckIcon className="text-emerald-400 h-4 w-4 icon" />
-                                <p className="text-xs text-emerald-400 uppercase tracking-wider">
-                                    Compliance
-                                </p>
-                            </div>
-                            <p className="text-2xl font-bold">SOC 2 Type II</p>
-                            <p className="text-xs text-gray-400 mt-1">Audited security</p>
-                        </div>
-
-                        <div
-                            className="bg-emerald-900/30 border border-emerald-400/20 rounded-xl p-6 min-w-[250px] sm:min-w-[300px] flex-shrink-0 marquee-card"
-                            aria-hidden="true"
-                        >
-                            <div className="flex items-center gap-2 mb-2">
-                                <GlobeAltIcon className="text-emerald-400 h-4 w-4 icon" />
-                                <p className="text-xs text-emerald-400 uppercase tracking-wider">
-                                    Global Reach
-                                </p>
-                            </div>
-                            <p className="text-3xl font-bold">37</p>
-                            <p className="text-xs text-gray-400 mt-1">Countries served</p>
-                        </div>
-
-                        <div
-                            className="bg-emerald-900/30 border border-emerald-400/20 rounded-xl p-6 min-w-[250px] sm:min-w-[300px] flex-shrink-0 marquee-card"
-                            aria-hidden="true"
-                        >
-                            <div className="flex items-center gap-2 mb-2">
-                                <ClockIcon className="text-emerald-400 h-4 w-4 icon" />
-                                <p className="text-xs text-emerald-400 uppercase tracking-wider">
-                                    Implementation
-                                </p>
-                            </div>
-                            <p className="text-3xl font-bold">9mo</p>
-                            <p className="text-xs text-gray-400 mt-1">Average timeline</p>
-                        </div>
-
-                        <div
-                            className="bg-emerald-900/30 border border-emerald-400/20 rounded-xl p-6 min-w-[250px] sm:min-w-[300px] flex-shrink-0 marquee-card"
-                            aria-hidden="true"
-                        >
-                            <div className="flex items-center gap-2 mb-2">
-                                <ChatBubbleLeftIcon className="text-emerald-400 h-4 w-4 icon" />
-                                <p className="text-xs text-emerald-400 uppercase tracking-wider">
-                                    Client Testimonial
-                                </p>
-                            </div>
-                            <p className="text-sm italic">"Reduced costs by 28%"</p>
-                            <p className="text-xs text-gray-400 mt-2">— Fortune 500 Client</p>
-                        </div>
-
-                        <div
-                            className="bg-emerald-900/30 border border-emerald-400/20 rounded-xl p-6 min-w-[250px] sm:min-w-[300px] flex-shrink-0 marquee-card"
-                            aria-hidden="true"
-                        >
-                            <div className="flex items-center gap-2 mb-2">
-                                <BuildingOffice2Icon className="text-emerald-400 h-4 w-4 icon" />
-                                <p className="text-xs text-emerald-400 uppercase tracking-wider">
-                                    Enterprise Scale
-                                </p>
-                            </div>
-                            <p className="text-3xl font-bold">$100M+</p>
-                            <p className="text-xs text-gray-400 mt-1">Annual revenue</p>
-                        </div>
-
-                        <div
-                            className="bg-emerald-900/30 border border-emerald-400/20 rounded-xl p-6 min-w-[250px] sm:min-w-[300px] flex-shrink-0 marquee-card"
-                            aria-hidden="true"
-                        >
-                            <div className="flex items-center gap-2 mb-2">
-                                <ShieldCheckIcon className="text-emerald-400 h-4 w-4 icon" />
-                                <p className="text-xs text-emerald-400 uppercase tracking-wider">
-                                    Compliance
-                                </p>
-                            </div>
-                            <p className="text-2xl font-bold">SOC 2 Type II</p>
-                            <p className="text-xs text-gray-400 mt-1">Audited security</p>
-                        </div>
-
-                        <div
-                            className="bg-emerald-900/30 border border-emerald-400/20 rounded-xl p-6 min-w-[250px] sm:min-w-[300px] flex-shrink-0 marquee-card"
-                            aria-hidden="true"
-                        >
-                            <div className="flex items-center gap-2 mb-2">
-                                <GlobeAltIcon className="text-emerald-400 h-4 w-4 icon" />
-                                <p className="text-xs text-emerald-400 uppercase tracking-wider">
-                                    Global Reach
-                                </p>
-                            </div>
-                            <p className="text-3xl font-bold">37</p>
-                            <p className="text-xs text-gray-400 mt-1">Countries served</p>
-                        </div>
-
-                        <div
-                            className="bg-emerald-900/30 border border-emerald-400/20 rounded-xl p-6 min-w-[250px] sm:min-w-[300px] flex-shrink-0 marquee-card"
-                            aria-hidden="true"
-                        >
-                            <div className="flex items-center gap-2 mb-2">
-                                <ClockIcon className="text-emerald-400 h-4 w-4 icon" />
-                                <p className="text-xs text-emerald-400 uppercase tracking-wider">
-                                    Implementation
-                                </p>
-                            </div>
-                            <p className="text-3xl font-bold">9mo</p>
-                            <p className="text-xs text-gray-400 mt-1">Average timeline</p>
-                        </div>
-
-                        <div
-                            className="bg-emerald-900/30 border border-emerald-400/20 rounded-xl p-6 min-w-[250px] sm:min-w-[300px] flex-shrink-0 marquee-card"
-                            aria-hidden="true"
-                        >
-                            <div className="flex items-center gap-2 mb-2">
-                                <ChatBubbleLeftIcon className="text-emerald-400 h-4 w-4 icon" />
-                                <p className="text-xs text-emerald-400 uppercase tracking-wider">
-                                    Client Testimonial
-                                </p>
-                            </div>
-                            <p className="text-sm italic">"Reduced costs by 28%"</p>
-                            <p className="text-xs text-gray-400 mt-2">— Fortune 500 Client</p>
-                        </div>
+                <div className="w-full mt-12 overflow-hidden">
+                    <div
+                        ref={marqueeRefRight}
+                        className="flex items-center gap-8 py-4 will-change-transform"
+                        style={{ width: "max-content" }}
+                        onMouseEnter={() => marqueeAnimationRight && marqueeAnimationRight.pause()}
+                        onMouseLeave={() => marqueeAnimationRight && marqueeAnimationRight.play()}
+                    >
+                        {renderCards(erpFeaturesCards, "features")}
                     </div>
                 </div>
             </div>
 
             <style>{`
-        .what-we-do .word-circled {
-          display: inline-block;
-          padding: 5px 5px;
-          outline: 0.3px dashed white;
-          margin: 0 2px;
-          line-height: 1.4;
-        }
-        .what-we-do .radiant-gradient {
-          background: linear-gradient(45deg, #10b981, #6ee7b7);
-        }
-        .what-we-do .linear-mask {
-          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-        }
-        .what-we-do .linear-overlay {
-          background: rgba(0, 0, 0, 0.1);
-        }
-        .what-we-do .marquee-card:hover .icon {
-          transform: scale(1.2);
-          transition: transform 0.2s ease;
-        }
-      `}</style>
+                .what-we-do .marquee-card {
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    box-sizing: border-box;
+                }
+                .what-we-do .marquee-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+                }
+                .what-we-do .marquee-card:hover .icon {
+                    transform: scale(1.3);
+                }
+                @media (max-width: 640px) {
+                    .what-we-do .marquee-card {
+                        width: 250px;
+                        height: 130px;
+                    }
+                    .what-we-do .marquee-card p.text-2xl {
+                        font-size: 1.5rem;
+                    }
+                }
+            `}</style>
         </div>
     );
 };
