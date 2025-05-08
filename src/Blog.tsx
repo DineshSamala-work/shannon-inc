@@ -15,7 +15,6 @@ const Blog: React.FC = () => {
     return (
         <div className="flex flex-col">
             <div className="flex gap-16">
-                {/* Operational Layers */}
                 <div className="flex flex-col">
                     <h3 className="mb-2 text-lg font-medium whitespace-nowrap text-white">(Operational Layers)</h3>
                     <div className="flex flex-col gap-1">
@@ -34,7 +33,6 @@ const Blog: React.FC = () => {
                     </div>
                 </div>
 
-                {/* More Layers */}
                 <div className="flex flex-col">
                     <div className="flex flex-col gap-1 mt-7">
                         <a href="#" className="flex items-center gap-2 text-base text-neutral-400 hover:text-white whitespace-nowrap">

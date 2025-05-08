@@ -106,7 +106,7 @@ export const ShiftingDropDown = () => {
                         mass: 2,
                     }}
                 >
-                    <span className="text-neutral-200 tracking-wide font-medium mr-1">
+                    <span className="text-neutral-200 tracking-wide font-medium ">
                         Contact us
                     </span>
                     <ArrowRightIcon className="w-4 h-4 transform transition-transform duration-300 group-hover:translate-x-1" />
@@ -114,7 +114,7 @@ export const ShiftingDropDown = () => {
                 </motion.button>
             </div>
 
-            {/* Desktop Header */}
+
             <div className="hidden sm:flex w-full items-center justify-between">
                 <div className="text-neutral-200 font-semibold text-xl md:text-2xl">
                     <span>SHANNON</span>
@@ -235,7 +235,7 @@ const ContentDesktop: React.FC<{ selected: number | null; direction: 'l' | 'r' |
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}
-            className={`absolute top-[calc(100%+24px)] w-auto rounded-2xl border border-neutral-500 bg-black p-4 ${
+            className={`absolute top-[calc(100%+24px)] w-auto rounded-xl border border-neutral-800 bg-black p-4 ${
                 isLastTab ? 'right-0' : ''
             }`}
         >

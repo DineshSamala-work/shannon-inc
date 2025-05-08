@@ -80,7 +80,7 @@ const LandingPage = () => {
         <ArrowRightIcon className="w-4 h-4 transform transition-transform duration-300 group-hover:translate-x-1 text-emerald-100" />
       </button>
 
-      <div className="mt-30 w-full overflow-hidden">
+      <div className="mt-20 w-full overflow-hidden">
         <div className="flex space-x-10 animate-scroll group hover:[animation-play-state:paused]">
           {Array(2)
             .fill([

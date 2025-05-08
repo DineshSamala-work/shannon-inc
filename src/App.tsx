@@ -22,9 +22,7 @@ const App = () => {
 
   return (
     <div className="bg-black min-h-screen">
-      {isLoading ? (
-        <Preloader />
-      ) : (
+      
         <>
           <ShiftingDropDown />
           <Marquee />
@@ -34,7 +32,6 @@ const App = () => {
           <Services />
           <Footer/>
         </>
-      )}
     </div>
   );
 };

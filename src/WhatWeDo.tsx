@@ -24,7 +24,6 @@ const WhatWeDo: React.FC = () => {
     const marqueeRefRight = useRef<HTMLDivElement>(null);
     let marqueeAnimationLeft: gsap.core.Tween | null = null;
     let marqueeAnimationRight: gsap.core.Tween | null = null;
-
     useEffect(() => {
         if (!paragraphRef.current) return;
 
@@ -38,13 +37,12 @@ const WhatWeDo: React.FC = () => {
         });
 
         const setupAnimations = () => {
-            // Left scrolling marquee (right to left) - Business Metrics
             if (marqueeRefLeft.current) {
                 const cards = gsap.utils.toArray(marqueeRefLeft.current.children) as HTMLElement[];
                 if (cards.length > 0) {
-                    const cardWidth = 300; // Fixed width for all cards
+                    const cardWidth = 300;
                     const gap = 32;
-                    const totalWidth = (cardWidth + gap) * (cards.length / 2); // Account for duplicated cards
+                    const totalWidth = (cardWidth + gap) * (cards.length / 2); 
 
                     gsap.set(marqueeRefLeft.current, { x: 0 });
 
@@ -60,7 +58,6 @@ const WhatWeDo: React.FC = () => {
                 }
             }
 
-            // Right scrolling marquee (left to right) - ERP Features
             if (marqueeRefRight.current) {
                 const cards = gsap.utils.toArray(marqueeRefRight.current.children) as HTMLElement[];
                 if (cards.length > 0) {
@@ -161,7 +158,7 @@ const WhatWeDo: React.FC = () => {
         return [...cards, ...cards].map((card, index) => (
             <div
                 key={`${prefix}-${card.title}-${index}`}
-                className="bg-emerald-900/30 border border-emerald-400/20 rounded-xl p-6 w-[300px] h-[150px] flex-shrink-0 marquee-card flex flex-col justify-between"
+                className="bg-emerald-900/30 border border-emerald-400/20 rounded-xl p-6 w-[420px] h-[150px] flex-shrink-0 marquee-card flex flex-col justify-between"
             >
                 <div className="flex items-center gap-2 mb-2">
                     {card.icon}
@@ -170,9 +167,8 @@ const WhatWeDo: React.FC = () => {
                     </p>
                 </div>
                 <p
-                    className={`${
-                        card.title === "Client Testimonial" ? "text-sm italic" : "text-2xl font-bold"
-                    } truncate`}
+                    className={`${card.title === "Client Testimonial" ? "text-sm italic" : "text-2xl font-bold"
+                        } truncate`}
                 >
                     {card.value}
                 </p>
@@ -216,12 +212,16 @@ const WhatWeDo: React.FC = () => {
                         ref={paragraphRef}
                         className="paragraph text-base sm:text-lg md:text-xl leading-snug md:leading-tight text-center max-w-4xl m-0 relative"
                     >
-                        Empower your business with end-to-end ERP consulting—from platform
-                        selection to implementation, customization, and integration. We align
-                        systems with your goals through deep process expertise, ensuring modern
-                        workflows, real-time insights, and scalable digital transformation.
+                        Empower your business with <span className="text-emerald-400">ERP consulting</span> — from platform
+                        selection to <span className="text-emerald-400">implementation</span>, customization, and
+                        <span className="text-emerald-400"> integration</span>. We align systems with your goals through deep
+                        <span className="text-emerald-400"> process expertise</span>, ensuring modern workflows,
+                        <span className="text-emerald-400"> real-time insights</span>, and
+                        <span className="text-emerald-400"> digital transformation</span>.
                     </p>
                 </div>
+
+
 
                 <motion.button
                     aria-label="Start ERP transformation"
@@ -261,7 +261,7 @@ const WhatWeDo: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="w-full mt-12 overflow-hidden">
+                <div className="w-full mt-5 overflow-hidden">
                     <div
                         ref={marqueeRefRight}
                         className="flex items-center gap-8 py-4 will-change-transform"
