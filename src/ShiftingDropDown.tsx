@@ -1,7 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState, useEffect } from 'react';
 import { FiChevronDown, FiMenu, FiX } from 'react-icons/fi';
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import {
     CubeIcon,
     Cog6ToothIcon,
@@ -46,6 +45,7 @@ import {
     GiftIcon,
     ChatBubbleLeftIcon,
     HandThumbUpIcon,
+    ArrowRightIcon,
 } from '@heroicons/react/24/outline';
 import Products from './Products';
 import Pricing from './Pricing';
@@ -74,8 +74,11 @@ export const ShiftingDropDown = () => {
 
     return (
         <div className="relative z-50 flex flex-col items-center w-full px-4 sm:px-8 py-4 gap-4 bg-black">
-            {/* Mobile Header */}
             <div className="flex w-full items-center justify-between sm:hidden">
+                <div className="text-neutral-200 font-semibold text-lg">
+                    <span>SHANNON</span>
+                </div>
+
                 <motion.button
                     onClick={toggleMenu}
                     aria-label="Toggle menu"
@@ -86,34 +89,7 @@ export const ShiftingDropDown = () => {
                 >
                     {isMenuOpen ? <FiX /> : <FiMenu />}
                 </motion.button>
-
-                <div className="text-neutral-200 font-semibold text-lg flex-1 text-center">
-                    <span>SHANNON</span>
-                </div>
-
-                <motion.button
-                    aria-label="Start ERP transformation"
-                    className="relative px-4 py-1.5 rounded-lg bg-[rgba(52,211,153,0.35)] border border-[rgba(52,211,153,0.6)] hover:bg-[rgba(52,211,153,0.42)] hover:border-[rgba(52,211,153,0.7)] transition-all duration-300 text-amber-50 text-sm flex items-center group shadow-md hover:shadow-[0_0_12px_rgba(52,211,153,0.2)] backdrop-blur-md overflow-hidden"
-                    initial={{ "--x": "100%" }}
-                    animate={{ "--x": "-100%" }}
-                    transition={{
-                        repeat: Infinity,
-                        repeatType: "loop",
-                        repeatDelay: 1,
-                        type: "spring",
-                        stiffness: 20,
-                        damping: 15,
-                        mass: 2,
-                    }}
-                >
-                    <span className="text-neutral-200 tracking-wide font-medium ">
-                        Contact us
-                    </span>
-                    <ArrowRightIcon className="w-4 h-4 transform transition-transform duration-300 group-hover:translate-x-1" />
-                    <span className="block absolute inset-0 rounded-md p-px linear-overlay" />
-                </motion.button>
             </div>
-
 
             <div className="hidden sm:flex w-full items-center justify-between">
                 <div className="text-neutral-200 font-semibold text-xl md:text-2xl">
@@ -128,7 +104,7 @@ export const ShiftingDropDown = () => {
 
                 <motion.button
                     aria-label="Start ERP transformation"
-                    className="relative rounded-lg bg-[rgba(52,211,153,0.35)] border border-[rgba(52,211,153,0.6)] hover:bg-[rgba(52,211,153,0.42)] hover:border-[rgba(52,211,153,0.7)] transition-all duration-300 text-amber-50 text-sm flex items-center group shadow-md hover:shadow-[0_0_12px_rgba(52,211,153,0.2)] backdrop-blur-md overflow-hidden w-auto text-center"
+                    className="relative rounded-lg bg-[rgba(52,211,153,0.35)] border border-[rgba(52,211,153,0.6)] hover:bg-[rgba(52,211,153,0.42)] hover:border-[rgba(52,211,153,0.7)] transition-all duration-300 text-amber-50 text-sm flex items-center group shadow-md hover vivir:shadow-[0_0_12px_rgba(52,211,153,0.2)] backdrop-blur-md overflow-hidden w-auto text-center"
                     initial={{ "--x": "100" }}
                     animate={{ "--x": "-100" }}
                     transition={{

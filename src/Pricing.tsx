@@ -21,7 +21,7 @@ const Pricing: React.FC = () => {
     return (
         <div className="flex flex-col">
             <div className="flex gap-16">
-                {/* By Industry */}
+                
                 <div className="flex flex-col">
                     <h3 className="mb-2 text-lg font-medium whitespace-nowrap text-white">(By Industry)</h3>
                     <div className="flex flex-col gap-1">
@@ -49,7 +49,6 @@ const Pricing: React.FC = () => {
                     </div>
                 </div>
 
-                {/* By Role */}
                 <div className="flex flex-col">
                     <h3 className="mb-2 text-lg font-medium whitespace-nowrap text-white">(By Role)</h3>
                     <div className="flex flex-col gap-1">
@@ -77,7 +76,6 @@ const Pricing: React.FC = () => {
                     </div>
                 </div>
 
-                {/* By Challenge */}
                 <div className="flex flex-col">
                     <h3 className="mb-2 text-lg font-medium whitespace-nowrap text-white">(By Current Challenge)</h3>
                     <div className="flex flex-col gap-1">

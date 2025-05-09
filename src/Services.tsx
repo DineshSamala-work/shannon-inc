@@ -40,7 +40,6 @@ const Services = () => {
   useEffect(() => {
     const elems = document.querySelectorAll('.service-item');
 
-    // Initialize GSAP properties for each service item
     const initialize = () => {
       gsap.set('.service-item img', { 
         opacity: 0, 
@@ -75,7 +74,7 @@ const Services = () => {
         xTo = gsap.quickTo(img, 'x', { duration: 0.2, ease: 'power3.out' });
         yTo = gsap.quickTo(img, 'y', { duration: 0.2, ease: 'power3.out' });
         
-        // Make sure image is positioned absolutely and has proper dimensions
+
         gsap.set(img, {
           position: 'absolute',
           width: '300px',

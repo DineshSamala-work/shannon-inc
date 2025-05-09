@@ -35,7 +35,6 @@ const Products: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Supply Chain */}
                 <div className="flex flex-col">
                     <h3 className="mb-2 text-lg font-medium whitespace-nowrap text-white">(Supply Chain)</h3>
                     <div className="flex flex-col gap-1">
@@ -60,7 +59,6 @@ const Products: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Business and Tech Advisory */}
                 <div className="flex flex-col">
                     <h3 className="mb-2 text-lg font-medium whitespace-nowrap text-white">(Business and Technology Advisory)</h3>
                     <div className="flex flex-col gap-1">
