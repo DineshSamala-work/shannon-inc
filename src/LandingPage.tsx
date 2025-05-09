@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import SplitText from "gsap-trial/SplitText";
+import SplitText from "gsap/SplitText";
 import { useEffect, useRef } from "react";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 

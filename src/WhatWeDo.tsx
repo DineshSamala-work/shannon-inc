@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import SplitText from "gsap-trial/SplitText";
+import SplitText from "gsap/SplitText";
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
@@ -24,6 +24,7 @@ const WhatWeDo: React.FC = () => {
     const marqueeRefRight = useRef<HTMLDivElement>(null);
     let marqueeAnimationLeft: gsap.core.Tween | null = null;
     let marqueeAnimationRight: gsap.core.Tween | null = null;
+
     useEffect(() => {
         if (!paragraphRef.current) return;
 
@@ -42,7 +43,7 @@ const WhatWeDo: React.FC = () => {
                 if (cards.length > 0) {
                     const cardWidth = 300;
                     const gap = 32;
-                    const totalWidth = (cardWidth + gap) * (cards.length / 2); 
+                    const totalWidth = (cardWidth + gap) * (cards.length / 2);
 
                     gsap.set(marqueeRefLeft.current, { x: 0 });
 
@@ -167,8 +168,7 @@ const WhatWeDo: React.FC = () => {
                     </p>
                 </div>
                 <p
-                    className={`${card.title === "Client Testimonial" ? "text-sm italic" : "text-2xl font-bold"
-                        } truncate`}
+                    className={`${card.title === "Client Testimonial" ? "text-sm italic" : "text-2xl font-bold"} truncate`}
                 >
                     {card.value}
                 </p>
@@ -179,11 +179,11 @@ const WhatWeDo: React.FC = () => {
 
     return (
         <div
-            className="what-we-do relative"
+            className="what-we-do relative sm:min-h-auto"
             style={{
                 backgroundColor: "black",
                 color: "white",
-                minHeight: "100vh",
+                minHeight: "10vh",
                 overflow: "hidden",
                 display: "flex",
                 flexDirection: "column",
@@ -207,10 +207,10 @@ const WhatWeDo: React.FC = () => {
                     height: "auto",
                 }}
             >
-                <div className="flex justify-center items-start h-full w-full p-2 relative">
+                <div className="flex justify-center items-start h-full w-full p-2 sm:p-1 relative">
                     <p
                         ref={paragraphRef}
-                        className="paragraph text-base sm:text-lg md:text-xl leading-snug md:leading-tight text-center max-w-4xl m-0 relative"
+                        className="paragraph text-base sm:text-xs md:text-xl leading-snug md:leading-tight text-center max-w-4xl m-0 relative"
                     >
                         Empower your business with <span className="text-emerald-400">ERP consulting</span> — from platform
                         selection to <span className="text-emerald-400">implementation</span>, customization, and
@@ -221,11 +221,9 @@ const WhatWeDo: React.FC = () => {
                     </p>
                 </div>
 
-
-
                 <motion.button
                     aria-label="Start ERP transformation"
-                    className="relative px-6 py-2 rounded-lg bg-[rgba(52,211,153,0.35)] border border-[rgba(52,211,153,0.6)] hover:bg-[rgba(52,211,153,0.42)] hover:border-[rgba(52,211,153,0.7)] transition-all duration-300 text-amber-50 text-sm flex items-center group shadow-md hover:shadow-[0_0_12px_rgba(52,211,153,0.2)] backdrop-blur-md overflow-hidden w-auto text-center mt-6"
+                    className="relative px-6 py-2 rounded-lg bg-[rgba(52,211,153,0.35)] border border-[rgba(52,211,153,0.6)] hover:bg-[rgba(52,211,153,0.42)] hover:border-[rgba(52,211,153,0.7)] transition-all duration-300 text-amber-50 text-sm flex items-center group shadow-md hover:shadow-[0_0_12px_rgba(52,211,153,0.2)] backdrop-blur-md overflow-hidden w-auto text-center mt-6 sm:mt-2"
                     initial={{ "--x": "100" }}
                     animate={{ "--x": "-100" }}
                     transition={{
@@ -240,6 +238,7 @@ const WhatWeDo: React.FC = () => {
                     style={{
                         fontSize: "clamp(6px, 2vw, 12px)",
                         padding: "clamp(3px, 1.5vw, 6px)",
+                        marginTop: 30
                     }}
                 >
                     <span className="text-neutral-100 tracking-wide font-medium mr-1 px-3 py-1">
@@ -249,7 +248,7 @@ const WhatWeDo: React.FC = () => {
                     <span className="block absolute inset-0 rounded-md p-px linear-overlay" />
                 </motion.button>
 
-                <div className="w-full mt-16 overflow-hidden">
+                <div className="w-full mt-16 overflow-hidden sm:mt-2">
                     <div
                         ref={marqueeRefLeft}
                         className="flex items-center gap-8 py-4 will-change-transform"
@@ -261,7 +260,7 @@ const WhatWeDo: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="w-full mt-5 overflow-hidden">
+                <div className="w-full mt-5 overflow-hidden sm:mt-1">
                     <div
                         ref={marqueeRefRight}
                         className="flex items-center gap-8 py-4 will-change-transform"
@@ -275,6 +274,24 @@ const WhatWeDo: React.FC = () => {
             </div>
 
             <style>{`
+                .what-we-do {
+                    overflow-x: hidden;
+                }
+                .grid-top {
+                    width: 100%;
+                    height: 30vh;
+                    display: flex;
+                    justify-content: center;
+                    align-items: flex-end;
+                    padding-bottom: 0.25rem;
+                }
+                .whatText {
+                    text-align: center !important;
+                    letter-spacing: normal;
+                    font-family: "Arial", sans-serif;
+                    margin: 0 auto;
+                    width: 100%;
+                }
                 .what-we-do .marquee-card {
                     transition: transform 0.3s ease, box-shadow 0.3s ease;
                     box-sizing: border-box;
@@ -285,6 +302,37 @@ const WhatWeDo: React.FC = () => {
                 }
                 .what-we-do .marquee-card:hover .icon {
                     transform: scale(1.3);
+                }
+                @media (max-width: 767px) {
+                    .what-we-do {
+                        padding: 0.5rem;
+                    }
+                    .grid-top {
+                        height: 10vh;
+                        padding: 0;
+                        justify-content: center;
+                        align-items: flex-end;
+                    }
+                    .grid-bottom-right {
+                        height: auto;
+                        min-height: 90vh;
+                        justify-content: flex-start !important;
+                        padding-top: 0.25rem;
+                    }
+                    .whatText {
+                        font-size: 5vw;
+                        text-align: center !important;
+                        letter-spacing: normal;
+                    }
+                    .mt-16 {
+                        margin-top: 0.5rem !important;
+                    }
+                    .mt-5 {
+                        margin-top: 0.25rem !important;
+                    }
+                    .min-h-auto {
+                        min-height: auto !important;
+                    }
                 }
                 @media (max-width: 640px) {
                     .what-we-do .marquee-card {

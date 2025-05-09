@@ -92,7 +92,7 @@ interface IndustriesWeServeProps {}
 
 const IndustriesWeServe: React.FC<IndustriesWeServeProps> = () => {
     return (
-        <div className="bg-black text-white min-h-screen p-[5vh_5vw] box-border">
+        <div className="bg-black text-white min-h-screen mt-[-0.4vh] px-[5vw] box-border">
             
             <section className="text-center mb-16">
                 <h1 className="text-[8vw] font-bold uppercase text-neutral-500 tracking-tighter">
